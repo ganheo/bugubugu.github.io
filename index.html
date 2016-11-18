@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta id="viewport" name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>立即下载</title>
+<style>
+	*{margin:0;padding:0;border:0;}
+	body,html{overflow-x:hidden;}
+	body{font-family:PingFangSC-Light,'helvetica neue','hiragino sans gb',arial,'microsoft yahei ui','microsoft yahei',simsun,sans-serif;line-height:1.5;background:#eee;}
+	#content{position:relative;height:480px;}
+	.downBox{width:320px;height:120px;background:url('images/downbg.png') no-repeat center;background-size:320px auto;position:absolute;bottom:0;left:0;}
+	#main{width:320px;height:300px;margin:0 auto;background:#fff;border-radius:16px;position:relative;top:80px;}
+	.downText{width:320px;height:220px;background:url('images/textbg.png') no-repeat;background-size:320px auto;}
+	#forwechat{display:none;height:30px;line-height:30px;color:#fff;padding:15px;position:absolute;top:0;left:0;width:100%;background:#3883e5}
+	#forwechat span{display:block;float:right;width:80px;height:60px;background:url('images/tipbg.png') no-repeat;background-size:80px auto;margin-right:30px;margin-top:-15px;}
+	#downBtn{font-size:18px;text-align:center;border:1px solid #fff;border-radius:100px;width:160px;margin:52px auto 0;color:#fff;padding:8px 0;}
+	#downFoot{font-size:14px;text-align:center;position:relative;top:150px;}
+</style>
+</head>
+
+<body>
+	<div id="content">
+        <div id="forwechat">点击右上角，选择在浏览器中打开<span></span></div>
+    	<div id="main">
+        <div class="downText"></div>
+        <div class="downBox">
+        	<div id="downBtn" onClick="window.location.href='#'">立即下载</div>
+        </div>
+        </div>
+        <div id="downFoot">©️ 武汉天量数据技术有限公司</div>
+    </div>
+
+
+
+<!--微信阻止下载的提示-->
+<script type="text/javascript">
+function weixinTip(ele){
+var ua = navigator.userAgent;
+var isWeixin = !!/MicroMessenger/i.test(ua);
+if(isWeixin){
+	document.getElementById('forwechat').style.display='block';
+	document.getElementById('main').style.top='120px';
+	document.getElementById('content').style.height='520px';
+	document.getElementById('downFoot').style.top='190px';
+}
+}
+var btn1 = document.getElementById('downBtn');
+weixinTip(btn1);
+</script>
+<!--判断手机系统，给出不同下载地址-->
+<script>
+var browser = {
+                versions: function() {
+                    var u = navigator.userAgent,
+                    app = navigator.appVersion;
+                    return {
+                        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1,
+                        iPhone: u.indexOf('iPhone') > -1 ,
+                        iPad: u.indexOf('iPad') > -1,
+                        iPod: u.indexOf('iPod') > -1,
+                    };
+                } (),
+                language: (navigator.browserLanguage || navigator.language).toLowerCase()
+            }
+            if (browser.versions.iPhone||browser.versions.iPad||browser.versions.iPod)
+            {
+				document.getElementById('downBtn').onclick = function(e){
+                	window.location.href="itmss://itunes.apple.com/cn/app/jiang-han-jiao-yu-du-dao/id1141302761?mt=8";
+				}
+            }
+            else if(browser.versions.android)
+            {
+				document.getElementById('downBtn').onclick = function(e){
+                	window.location.href = "http://openbox.mobilem.360.cn/index/d/sid/3534174";
+				}
+            }
+</script>
+</body>
+</html>
